@@ -1,0 +1,20 @@
+Maya: Welcome to Chapter 6: Project Scope Management. This chapter focuses on what the project will accomplish and how to protect the project from work outside the scope.
+Jordan: Right. The notes make the distinction between product scope and project scope. Product scope is the features and functions, while project scope is the work needed to deliver them.
+Maya: A big warning in this chapter is gold plating. That is extra work that is not in the scope baseline, and it is not allowed because it can increase risk, cost, schedule problems, and quality problems.
+Jordan: The planning processes include Plan Scope Management, Collect Requirements, Define Scope, and Create WBS.
+Maya: Plan Scope Management creates the scope management plan and requirements management plan. These are how-to plans for managing scope and requirements.
+Jordan: Collect Requirements is where stakeholders needs are defined and documented to meet project objectives.
+Maya: The outputs are requirements documentation and the requirements traceability matrix, which links requirements back to their origin.
+Jordan: Define Scope creates the project scope statement. The notes say this is one of the most important planning documents and should include both project and product scope.
+Maya: The scope statement includes deliverables, acceptance criteria, exclusions, constraints, and assumptions.
+Jordan: Create WBS breaks down deliverables into smaller work packages. Its main output is the scope baseline.
+Maya: The scope baseline includes the project scope statement, WBS, and WBS dictionary.
+Jordan: The WBS dictionary supports the WBS with details about each work package, including description, schedule, cost estimates, assumptions, constraints, and acceptance criteria.
+Maya: On agile projects, work is decomposed from epic to feature to story to task.
+Jordan: Definition of Done is a shared understanding of what it means when work is finished between the customer and project team.
+Maya: Validate Scope is where deliverables are formally inspected and accepted by the customer or sponsor.
+Jordan: Control Quality usually happens before Validate Scope because the deliverable should be checked for quality before formal acceptance.
+Maya: Control Scope is different. It is done on a daily basis to make sure the project stays within scope.
+Jordan: Unapproved expansion of scope is scope creep. On traditional projects, scope changes must go through integrated change control.
+Maya: On agile or hybrid projects, feature changes are added to the product backlog and prioritized by the product owner.
+Jordan: The key exam trap is Validate Scope versus Control Scope: validate is formal acceptance at the end; control is daily monitoring to stay on scope.

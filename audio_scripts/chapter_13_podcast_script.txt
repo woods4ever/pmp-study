@@ -1,0 +1,46 @@
+Chapter 13: Project Procurement Management
+==========================================
+
+Maya: Alright, let’s study Chapter 13: Project Procurement Management. This is one of those PMP areas where you want to understand both the terminology and the project manager mindset behind it.
+
+Jordan: Exactly. The PMP rarely rewards memorizing words only. It wants you to recognize the situation, identify what process or principle is being tested, and choose the next best action.
+
+Maya: One key point is this: Procurement management knowledge area is about getting products, services, or results from outside the project team.
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. There are only three processes in this knowledge area, but expect many questions about contract types on the exam.
+
+Maya: One key point is this: PMP exam questions are generally from the perspective of a buyer.
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. Unless specifically stated otherwise, assume you are the buyer hiring a seller for the project.
+
+Maya: One key point is this: Only assume seller perspective if the question specifically says you are a seller.
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. Agreements and contracts are generally considered the same on the PMP exam.
+
+Maya: One key point is this: A contract is a legally binding agreement between a buyer and a seller for products, services, or results.
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. A contract is not legal if it is for illegal work (crime) to be performed.
+
+Maya: One key point is this: A contract can be terminated by both buyer and seller for work not getting done or payments not being made.
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. Contracts generally include the following:
+
+Maya: One key point is this: Formal written document
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. Scope of work to be performed
+
+Maya: One key point is this: Roles and responsibilities
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. How to perform the work, including locations and times
+
+Maya: One key point is this: Terms and conditions
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. Warranties and penalties
+
+Maya: One key point is this: Payment terms
+
+Jordan: And the way to think about that for the exam is to connect it to the project manager’s responsibility. Termination clauses
+
+Maya: So the big takeaway is not just knowing the definition. You want to ask: what is happening in the scenario, who is impacted, what process should be used, and what should the project manager do next?
+
+Jordan: Right. Slow down, do not jump straight to escalation, and use the correct PMP process. That is how this chapter turns into points on the exam.

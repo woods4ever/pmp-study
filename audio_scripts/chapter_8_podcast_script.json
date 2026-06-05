@@ -1,0 +1,147 @@
+{
+  "chapter": 8,
+  "title": "Chapter 8: Cost Management",
+  "recommended_filename": "chapter_8.mp3",
+  "speakers": [
+    "Maya",
+    "Jordan"
+  ],
+  "script": [
+    {
+      "speaker": "Host 1",
+      "text": "Let\u2019s dig into Chapter 8, Cost Management. This chapter matters because it combines basic cost concepts, budgeting process flow, reserves, and earned value management."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "And earned value is one of those areas where students might memorize formulas but still miss questions because they do not understand what the numbers actually mean."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "The big goal of cost management is creating the cost baseline, which is the project budget, and then ensuring the project stays on budget."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Start with cost types. Variable costs change as the project progresses. Fixed costs stay the same. Direct costs are directly tied to project work and are included in the cost baseline. Indirect costs are not included in the project budget."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Sunk cost is money already spent. Value engineering, also called value analysis, is finding a less costly way to achieve the same goal or scope."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "And the PMP mindset is important here. Value engineering is not cutting quality or removing requirements. It is finding a less costly way to achieve the required outcome."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "The four cost management processes are Plan Cost Management, Estimate Costs, Determine Budget, and Control Costs."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Plan Cost Management creates the cost management plan. That plan guides how activity costs will be estimated, how the budget will be created, and how project costs will be monitored and controlled."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Estimate Costs assigns a cost to each activity. Costs can include labor, materials, equipment, services, facilities, inflation, and reserves for risk."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Know the estimate ranges. Rough Order of Magnitude is the least accurate and is usually minus 25 percent to plus 75 percent. Budget estimate is around minus 10 to plus 25. Definitive estimate is the most accurate, around minus 5 to plus 10."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Analogous estimating is top-down. It uses previous similar projects. It is quick, but can be inaccurate if the previous work is not very similar."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Bottom-up estimating is the opposite. It breaks work into smaller pieces, estimates each part, and aggregates the total. It is time-consuming but very accurate."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Parametric estimating uses math and historical data. For example, if painting costs two dollars per square foot, then five hundred square feet costs one thousand dollars."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Reserve analysis is a big exam topic. Contingency reserves cover known unknowns. That means identified risks. They are included in the cost baseline and the project manager can usually use them without additional approval."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Management reserves cover unknown unknowns. These are unforeseen events management did not identify earlier. Management reserves are above the cost baseline and require management approval."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "That distinction is critical. Contingency equals known unknown and included in baseline. Management equals unknown unknown and above baseline."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Determine Budget aggregates cost estimates to create the project budget. Cost aggregation rolls up activity cost estimates and work packages into the total project cost."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "The cost baseline includes project work and contingency reserve, but not management reserve. It can be shown as an S-curve because spending is often lower at the start, highest in the middle, and lower at the end."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Control Costs is where the project manager monitors cost performance. The PM compares planned work to actual work, identifies variances, determines why they happened, and decides corrective action."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Now earned value. BAC is Budget at Completion, the total planned budget. PV is Planned Value, the cost of work planned to be completed. EV is Earned Value, the value of work actually completed. AC is Actual Cost, the amount actually spent."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Cost Variance is EV minus AC. If CV is positive, the project is under budget. If CV is negative, the project is over budget."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Cost Performance Index is EV divided by AC. CPI tells how efficiently the project is spending money. CPI above 1 is good. CPI below 1 is bad."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "So if CPI is point eight, that means for every dollar spent, the project only gets eighty cents of value. That is over budget."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Schedule Variance is EV minus PV. If SV is positive, the project is ahead of schedule. If SV is negative, the project is behind schedule."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Schedule Performance Index is EV divided by PV. SPI above 1 means ahead of schedule. SPI below 1 means behind schedule."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Estimate at Completion is BAC divided by CPI. This is the forecasted final project cost if the project continues at the current spending rate."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Estimate to Complete is EAC minus AC. That tells how much more money is needed to finish the project."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Variance at Completion is BAC minus EAC. Positive VAC means money left over. Negative VAC means more money is needed."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "TCPI is the To-Complete Performance Index. It tells the efficiency needed to finish within budget. If TCPI is higher than 1, the project team must work more efficiently to finish within budget."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "The exam may give numbers and ask you to calculate, but the real skill is interpretation. If CPI is less than 1, cost is bad. If SPI is less than 1, schedule is bad. If CV is negative, over budget. If SV is negative, behind schedule."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Agile budgeting is also different. Traditional projects calculate the entire budget during planning. Agile projects are often funded incrementally as iterations are completed."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Agile can use a burn rate approach. For example, number of people times hourly cost times hours worked gives cost per week. Then multiply by iteration length and number of iterations."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Final mindset: when cost issues appear, the project manager should analyze the data, understand the variance, determine corrective action, and use change control when budget changes are needed."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Do not just ask for more money. Do not ignore the variance. Do not change the budget informally. Analyze, forecast, communicate, and follow the process."
+    }
+  ]
+}

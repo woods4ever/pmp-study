@@ -1,0 +1,187 @@
+{
+  "chapter": 7,
+  "title": "Chapter 7: Schedule Management",
+  "recommended_filename": "chapter_7.mp3",
+  "speakers": [
+    "Maya",
+    "Jordan"
+  ],
+  "script": [
+    {
+      "speaker": "Host 1",
+      "text": "Let\u2019s go deeper into Chapter 7, Schedule Management. This chapter is one of those PMP chapters where you cannot just memorize a few words and hope for the best. You need to understand the flow of how a schedule is built, how it is protected, and how the project manager reacts when the schedule starts slipping."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Exactly. The big purpose of schedule management is timely project completion. That sounds simple, but underneath that are processes, dependencies, duration estimates, baselines, compression techniques, agile scheduling, and critical path math."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "So let\u2019s anchor the chapter first. The project manager needs to create a schedule baseline, build the project schedule, and then ensure the project stays on schedule. That means the schedule is not just a calendar. It is a performance baseline."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "And the exam loves that distinction. A schedule baseline is the approved version of the schedule. Once approved, you do not casually change it. If a schedule change impacts the baseline, it needs to go through formal change control."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "The six schedule management processes are Plan Schedule Management, Define Activities, Sequence Activities, Estimate Activity Durations, Develop Schedule, and Control Schedule."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Think of that as a natural build. First decide how scheduling will be managed. Then break the work into activities. Then put those activities in order. Then estimate how long they take. Then develop the full schedule. Then monitor and control the schedule during execution."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Plan Schedule Management creates the schedule management plan. This plan explains how the next schedule processes will be performed. It also says how the schedule will be measured and how variances from the schedule baseline will be handled."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "A PMP mindset point here is that the project manager should not just wing it. PMI wants a defined approach. Before managing the schedule, the team needs to know how schedule work will be planned, estimated, developed, and controlled."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Next is Define Activities. This process takes work packages from the WBS and breaks them into activities. Activities are the actual scheduled work needed to create deliverables."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "That means activities are more detailed than work packages. A work package can contain multiple activities. The activity list becomes a major output and is later used for estimating duration and cost."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Rolling wave planning is important here. Near-term work is decomposed now. Future work is decomposed later when more details are known."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "That connects to progressive elaboration. PMI understands that not everything is known upfront. So the project manager plans near-term work in detail and waits to decompose future work until there is enough information."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Then Sequence Activities puts the activities in the order they will be performed. The main output is the project schedule network diagram."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "The network diagram shows the sequence of activities and their dependencies. The exam expects you to understand predecessor and successor activities, activity-on-node diagrams, and the four relationship types."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Finish-to-Start is the most common. Activity A must finish before Activity B starts. Example: you must finish installing memory before installing the operating system."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Finish-to-Finish means activities must finish at the same time, but they do not need to start at the same time. Start-to-Start means one activity must start before another can start. Start-to-Finish is rare and means the successor cannot finish until the predecessor starts."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Dependency types matter too. Mandatory dependencies are hard logic. They must happen in a certain order. Discretionary dependencies are preferred order, but not required. External dependencies come from outside the project team. Internal dependencies are within the project team\u2019s control."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "The exam may give you a scenario and ask what kind of dependency it is. If the project is waiting on a government permit, that is external. If testing comes after installation because the team controls both, that is internal. If one activity physically cannot happen before another, that is mandatory."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Leads and lags are another trap area. A lead creates overlap. A lag creates delay. If Activity B starts before Activity A finishes, that is a lead. If Activity B must wait two days after Activity A finishes, that is a lag."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Then we estimate activity durations. This is determining how long each activity will take. The duration can be in hours, days, weeks, or years, and it is affected by risk, resources, availability, and scope."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Estimating methods include analogous estimating, parametric estimating, three-point estimating, and bottom-up estimating."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Analogous estimating is quick and uses historical data from similar work, but it is less accurate. Parametric estimating uses mathematical formulas with historical data. Bottom-up estimating is the most accurate but takes the most time because each smaller component is estimated and rolled up."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "PERT uses three estimates: optimistic, most likely, and pessimistic. The beta formula is optimistic plus four times most likely plus pessimistic, divided by six."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "And the reason most likely is multiplied by four is because the formula weights the realistic estimate more heavily. The exam tip is to use PERT beta if the question does not specify."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Standard deviation is pessimistic minus optimistic, divided by six. Triangular distribution is optimistic plus most likely plus pessimistic, divided by three."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Now Develop Schedule is where the full project schedule and schedule baseline are created. This process uses the outputs from activity definition, sequencing, resource estimating, and duration estimating."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Critical Path Method is one of the biggest exam areas. The critical path is the longest path through the network diagram and determines the project duration."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "This is the key: activities on the critical path have no float. If a critical path activity slips, the whole project slips unless the project manager takes action."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Float, or slack, is how long an activity can be delayed without delaying the project. You can calculate slack as late start minus early start or late finish minus early finish."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "For forward pass, you calculate early start and early finish. For backward pass, you calculate late finish and late start. The exam may give you a network diagram and ask for critical path, float, early start, or late finish."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Resource optimization also appears in Develop Schedule. Resource leveling adjusts the schedule due to limited or overallocated resources and often increases project duration."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Resource smoothing adjusts activities without changing the critical path. It uses available float and does not delay project completion."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Schedule compression is used when the schedule is too long. Crashing means adding resources. It increases cost and may increase risk. Fast-tracking means doing activities in parallel. It reduces time but increases risk."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "So if the question says the project manager adds people, pays overtime, or adds equipment to shorten the schedule, think crashing. If the question says activities are done at the same time that were originally planned in sequence, think fast-tracking."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Control Schedule is about monitoring the work against the schedule baseline. The project manager compares planned work versus actual work and determines whether the project is on schedule."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "If there is a variance, the project manager analyzes it and may need a change request. The mindset is not panic, blame the team, or secretly change the schedule. The project manager follows the process."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Agile scheduling works differently. Work is stored in the product backlog. Teams estimate effort using t-shirt sizing or planning poker. Work is delivered in increments."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Planning poker often uses Fibonacci numbers like 1, 2, 3, 5, 8, and 13. The larger the number, the more effort the user story requires."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Velocity measures how many points the team completes per iteration. That helps forecast future sprint capacity."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Burnup charts show work completed. Burndown charts show work remaining. Cumulative flow diagrams help visualize work over time and where work may be stuck."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Lead time is the time to complete the entire process. Cycle time is the time to complete part of the process. Cycle time equals work in progress divided by throughput."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "And if WIP is too high, bottlenecks can form and efficiency drops. That is why reducing WIP helps reduce cycle time."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Final Chapter 7 mindset: the project manager protects the schedule by understanding dependencies, estimating realistically, monitoring performance, and using the right corrective actions when needed."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Exactly. For the PMP, always think: understand the schedule baseline, analyze the variance, use the right tool, and follow change control when the baseline is affected."
+    }
+  ]
+}

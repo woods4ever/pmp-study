@@ -1,0 +1,15 @@
+Recommended prompt for premium voice generation:
+
+Create a two-person PMP study podcast from this script.
+
+Voice direction:
+- Speaker 1 (Maya): calm, clear, structured PMP instructor.
+- Speaker 2 (Jordan): warm, practical exam coach.
+- Tone: conversational, focused, encouraging, not overly dramatic.
+- Pace: medium-slow for retention.
+- Add small pauses between speakers.
+- Emphasize formulas, exam traps, and PMP mindset phrases.
+- Do not add content that is not in the script.
+- Export as MP3.
+
+Use the chapter script exactly as provided.

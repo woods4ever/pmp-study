@@ -1,0 +1,147 @@
+{
+  "chapter": 9,
+  "title": "Chapter 9: Project Quality Management",
+  "recommended_filename": "chapter_9.mp3",
+  "speakers": [
+    "Maya",
+    "Jordan"
+  ],
+  "script": [
+    {
+      "speaker": "Host 1",
+      "text": "Chapter 9 is Project Quality Management, and this chapter is very PMP mindset heavy. It is not just about inspecting work at the end. It is about understanding requirements, preventing defects, improving processes, and confirming deliverables meet standards."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Exactly. Quality is defined as the degree to which a set of inherent characteristics fulfill requirements. So if requirements are unclear, quality becomes hard to prove."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "That is why collecting requirements correctly matters. If the project team does not understand what quality means for the stakeholder, the deliverable may fail even if the team thinks it did good work."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Grade and quality are different. Grade is the category or level of features. Quality is whether the product meets requirements."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "A low-grade product can be high quality if it meets requirements. A high-grade product can be low quality if it fails, breaks, or does not meet requirements."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "The exam tip is simple: quality must always be high, while grade can be low or high."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Just-in-time is also mentioned. It is where a product-based company maintains very low or no inventory and obtains latest products, helping with inventory quality and lower inventory cost."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Plan-Do-Check-Act is another major quality theory. Plan means design or revise the process. Do means implement the plan and measure performance. Check means assess the measurements. Act means decide what changes are needed to improve the process."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Continuous improvement, also called Kaizen, focuses on small changes to improve processes and quality. The key idea is that products and services become outdated if they are not continuously improved."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "And everyone is responsible for quality. Customers, project managers, team members, sponsors, and senior management all play a role."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Prevention over inspection is a huge PMP mindset concept. It is generally more cost-effective to prevent defects than inspect after deliverables are already made."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Prevention can include better planning, better materials, knowledgeable team members, and better equipment. The more prevention you build in, the fewer defects you should have later."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Six Sigma focuses on improving processes to reduce defects. You do not need sigma calculations for the exam, but you do need to understand the theory."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Now let\u2019s separate attribute sampling and variable sampling. Attribute sampling is about presence or absence of characteristics. Good or bad. Yes or no. One or zero."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Variable sampling measures degree. Something can be okay, good, very good, bad, or very bad. So attribute is binary, variable is degree."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "The three quality processes are Plan Quality Management, Manage Quality, and Control Quality."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Plan Quality Management identifies quality requirements and documents how the project will meet them. The main outputs are the quality management plan and quality metrics."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Quality metrics are used to measure deliverables and processes against quality standards. Examples include program load speed, software test coverage, and process improvements."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Manage Quality is about executing the activities in the quality management plan. This is where quality assurance appears."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Quality assurance ensures the correct processes are followed and processes are improved. Manage Quality focuses on the processes used to produce deliverables."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Control Quality is different. Control Quality inspects completed deliverables to determine whether they meet quality standards and requirements."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "That is one of the biggest exam distinctions. Process focus equals Manage Quality. Deliverable inspection equals Control Quality."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Now let\u2019s talk tools. Benchmarking compares project quality requirements to other projects\u2019 quality requirements. Cost-benefit analysis compares the benefits of meeting quality requirements against the cost of meeting them."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Cost of quality includes cost of conformance and cost of nonconformance. Conformance includes prevention and appraisal costs. Nonconformance includes internal and external failure costs."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "A flowchart shows the process and room for improvement. If you want to make sure the team follows a process correctly, think flowchart."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "A checklist helps verify that deliverable components are checked correctly. A check sheet keeps a running total or tally of defects."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "A cause-and-effect diagram, also called a fishbone or Ishikawa diagram, identifies causes of defects and root causes of potential defects."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Histograms are bar charts showing distribution of numerical data. They can show frequency of defects."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Audits make sure the project follows organizational quality policies, processes, and procedures. They can also verify that approved change requests were implemented."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Control charts show whether a process is in control. The mean is represented by the center line, and upper and lower control limits are typically three standard deviations from the mean."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "The rule of seven says if seven consecutive points fall on one side of the mean, the process must be inspected."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Testing and product evaluations are used to verify that deliverables meet requirements. In software, examples include unit testing and integration testing."
+    },
+    {
+      "speaker": "Host 1",
+      "text": "Final mindset for Chapter 9: quality is planned in, built through good processes, and confirmed through inspection and testing."
+    },
+    {
+      "speaker": "Host 2",
+      "text": "Exactly. PMP wants the project manager to prevent defects, improve processes, understand requirements, use objective metrics, and confirm deliverables meet quality standards."
+    }
+  ]
+}

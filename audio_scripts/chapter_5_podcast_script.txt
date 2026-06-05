@@ -1,0 +1,39 @@
+Maya: Welcome to Chapter 5: Integration Management. This chapter pulls together the other knowledge areas and shows how the project manager keeps the whole project connected.
+
+Jordan: Exactly. The notes say the project manager’s main job is to perform integration, so think connection, coordination, and control across the full project.
+
+Maya: The chapter starts with Develop Project Charter. The charter formally authorizes the project or phase and gives senior management approval to start.
+
+Jordan: And once the charter is approved, the next step is to identify stakeholders and begin planning the project.
+
+Maya: The business case explains why the business should do the project, and the benefits management plan describes the benefits the project should produce once completed.
+
+Jordan: Those business documents feed the project charter, and the project charter leads into the project management plan.
+
+Maya: For project selection, remember the basic direction: bigger BCR, IRR, PV, NPV, and ROI are better. Shorter payback period is better.
+
+Jordan: Opportunity cost is what you give up when you choose one project over another.
+
+Maya: Develop Project Management Plan creates the formal document that explains how the project will be executed, monitored and controlled, and closed.
+
+Jordan: Once the plan is baselined, only an approved change request through perform integrated change control can update it.
+
+Maya: The project management plan has management plans and baselines. The notes describe it as 18 parts: 4 baselines and 14 subsidiary plans.
+
+Jordan: Direct and Manage Project Work is where the team performs the work defined in the plan and creates deliverables.
+
+Maya: That process also produces work performance data, which is raw information about the work performed.
+
+Jordan: Manage Project Knowledge focuses on using explicit and tacit knowledge for the benefit of the project and organization.
+
+Maya: Explicit knowledge is tangible, like documents and manuals. Tacit knowledge is know-how gained by doing the work.
+
+Jordan: Lessons learned are gathered throughout the project, not just at the end. They go into the lessons learned register.
+
+Maya: Monitor and Control Project Work compares the work being done to the plan and produces work performance reports.
+
+Jordan: Perform Integrated Change Control reviews change requests and approves or rejects them. On traditional projects, assess before action.
+
+Maya: On agile projects, change is generally added to the product backlog and re-prioritized by the product owner.
+
+Jordan: Close Project or Phase formally completes the project, phase, or contract, transfers the final output, captures lessons learned, and updates organizational process assets.

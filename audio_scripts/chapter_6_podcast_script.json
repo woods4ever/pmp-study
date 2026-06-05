@@ -1,0 +1,82 @@
+[
+  {
+    "speaker": "Maya",
+    "text": "Welcome to Chapter 6: Project Scope Management. This chapter focuses on what the project will accomplish and how to protect the project from work outside the scope."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "Right. The notes make the distinction between product scope and project scope. Product scope is the features and functions, while project scope is the work needed to deliver them."
+  },
+  {
+    "speaker": "Maya",
+    "text": "A big warning in this chapter is gold plating. That is extra work that is not in the scope baseline, and it is not allowed because it can increase risk, cost, schedule problems, and quality problems."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "The planning processes include Plan Scope Management, Collect Requirements, Define Scope, and Create WBS."
+  },
+  {
+    "speaker": "Maya",
+    "text": "Plan Scope Management creates the scope management plan and requirements management plan. These are how-to plans for managing scope and requirements."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "Collect Requirements is where stakeholders needs are defined and documented to meet project objectives."
+  },
+  {
+    "speaker": "Maya",
+    "text": "The outputs are requirements documentation and the requirements traceability matrix, which links requirements back to their origin."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "Define Scope creates the project scope statement. The notes say this is one of the most important planning documents and should include both project and product scope."
+  },
+  {
+    "speaker": "Maya",
+    "text": "The scope statement includes deliverables, acceptance criteria, exclusions, constraints, and assumptions."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "Create WBS breaks down deliverables into smaller work packages. Its main output is the scope baseline."
+  },
+  {
+    "speaker": "Maya",
+    "text": "The scope baseline includes the project scope statement, WBS, and WBS dictionary."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "The WBS dictionary supports the WBS with details about each work package, including description, schedule, cost estimates, assumptions, constraints, and acceptance criteria."
+  },
+  {
+    "speaker": "Maya",
+    "text": "On agile projects, work is decomposed from epic to feature to story to task."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "Definition of Done is a shared understanding of what it means when work is finished between the customer and project team."
+  },
+  {
+    "speaker": "Maya",
+    "text": "Validate Scope is where deliverables are formally inspected and accepted by the customer or sponsor."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "Control Quality usually happens before Validate Scope because the deliverable should be checked for quality before formal acceptance."
+  },
+  {
+    "speaker": "Maya",
+    "text": "Control Scope is different. It is done on a daily basis to make sure the project stays within scope."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "Unapproved expansion of scope is scope creep. On traditional projects, scope changes must go through integrated change control."
+  },
+  {
+    "speaker": "Maya",
+    "text": "On agile or hybrid projects, feature changes are added to the product backlog and prioritized by the product owner."
+  },
+  {
+    "speaker": "Jordan",
+    "text": "The key exam trap is Validate Scope versus Control Scope: validate is formal acceptance at the end; control is daily monitoring to stay on scope."
+  }
+]
