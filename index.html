@@ -171,6 +171,29 @@
   display:none;
 }
 
+
+.dark-mode {
+  --bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--primary:#e2e8f0;
+  --soft:#334155;--green:#34d399;--red:#f87171;--blue:#60a5fa;--amber:#fbbf24;--purple:#a78bfa;
+}
+.dark-mode body{background:#0f172a;color:#e2e8f0}
+.dark-mode .card{background:#1e293b;border-color:#334155}
+.dark-mode .option{background:#1e293b;color:#e2e8f0;border-color:#475569}
+.dark-mode .option.selected{background:#e2e8f0;color:#0f172a}
+.dark-mode .btn.secondary{background:#334155;color:#e2e8f0}
+.dark-mode .bottom-nav{background:rgba(15,23,42,.96);border-color:#1e293b}
+.dark-mode .navbtn{background:#1e293b;color:#94a3b8;border-color:#334155}
+.dark-mode .navbtn.active{background:#e2e8f0;color:#0f172a}
+.dark-mode .conf{background:#1e293b;color:#e2e8f0;border-color:#475569}
+.dark-mode .pill{background:#334155;color:#94a3b8}
+.dark-mode .script-box{background:#1e293b;border-color:#334155}
+.dark-mode .line{background:#0f172a;border-color:#334155}
+.dark-mode input,.dark-mode select,.dark-mode textarea{background:#1e293b;color:#e2e8f0;border-color:#475569}
+.dark-mode .question-timer{background:#1e293b;border-color:#334155}
+.dark-mode .exam-panel{background:#1e293b;border-color:#334155}
+.dark-mode .analytics-card{background:#1e293b;border-color:#334155}
+.dark-mode .tool-btn{background:#1e293b;color:#94a3b8;border-color:#475569}
+.dark-mode .progressbar{background:#334155}
 </style>
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -197,12 +220,19 @@
     <button class="navbtn" onclick="go('missed')">Missed</button>
     <button class="navbtn" onclick="go('bookmarks')">Saved</button>
     <button class="navbtn" onclick="go('tutor')">Tutor</button>
-    <button class="navbtn" onclick="go('reviewQueue')">Review</button><button class="navbtn" onclick="go('dailyPlan')">Plan</button><button class="navbtn" onclick="go('progress')">Progress</button>
+    <button class="navbtn" onclick="go('reviewQueue')">Review</button><button class="navbtn" onclick="go('dailyPlan')">Plan</button><button class="navbtn" onclick="go('progress')">Progress</button><button class="navbtn" onclick="toggleDarkMode()">Theme</button>
   </nav>
 </div>
 <script>
 
 
+function toggleDarkMode(){
+  document.querySelector('.app').classList.toggle('dark-mode');
+  var isDark = document.querySelector('.app').classList.contains('dark-mode');
+  localStorage.setItem('pmp_dark_mode', isDark ? '1' : '0');
+}
+// Auto-apply dark mode on load
+if(localStorage.getItem('pmp_dark_mode')==='1'){document.addEventListener('DOMContentLoaded',function(){var el=document.querySelector('.app');if(el)el.classList.add('dark-mode');});}
 function shuffleOptions(q){
   var indices = q.options.map(function(_,i){return i});
   for(var i=indices.length-1;i>0;i--){
@@ -259,6 +289,55 @@ document.addEventListener("visibilitychange",()=>{
 });
 
 function go(target){ if(target!=="chapterDetail") stopPodcast(false); screen=target; render();}
+function exportProgress(){
+  var data={missed:missed,bookmarks:bookmarks,tutorHistory:tutorHistory,studyHistory:studyHistory,reviewQueue:reviewQueue,audioMarks:audioMarks,streakData:streakData,exportDate:new Date().toISOString()};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='pmp_study_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);
+}
+function importProgress(){
+  var input=document.createElement('input');input.type='file';input.accept='.json';
+  input.onchange=function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var data=JSON.parse(ev.target.result);if(data.missed)missed=data.missed;if(data.bookmarks)bookmarks=data.bookmarks;if(data.tutorHistory)tutorHistory=data.tutorHistory;if(data.reviewQueue)reviewQueue=data.reviewQueue;if(data.audioMarks)audioMarks=data.audioMarks;if(data.streakData)streakData=data.streakData;save();alert('Progress restored! '+((data.studyHistory||[]).length)+' study sessions imported.');render();}catch(err){alert('Error reading backup file.');}};reader.readAsText(file);};
+  input.click();
+}
+function formulaFlashcards(){
+  var cards=[
+    {front:"CPI (Cost Performance Index)",back:"CPI = EV / AC\nAbove 1 = under budget\nBelow 1 = over budget"},
+    {front:"SPI (Schedule Performance Index)",back:"SPI = EV / PV\nAbove 1 = ahead of schedule\nBelow 1 = behind schedule"},
+    {front:"CV (Cost Variance)",back:"CV = EV - AC\nPositive = under budget\nNegative = over budget"},
+    {front:"SV (Schedule Variance)",back:"SV = EV - PV\nPositive = ahead\nNegative = behind"},
+    {front:"EAC (Estimate at Completion)\nCurrent trend continues",back:"EAC = BAC / CPI\nUsed when current variances are typical"},
+    {front:"EAC (Atypical variance)",back:"EAC = AC + (BAC - EV)\nUsed when current variances are one-time"},
+    {front:"EAC (Both cost and schedule)",back:"EAC = AC + [(BAC - EV) / (CPI x SPI)]\nUsed when both schedule and cost matter"},
+    {front:"ETC (Estimate to Complete)",back:"ETC = EAC - AC\nHow much more will we spend?"},
+    {front:"VAC (Variance at Completion)",back:"VAC = BAC - EAC\nPositive = under budget at end\nNegative = over budget at end"},
+    {front:"TCPI (To Complete Performance Index)\nBased on BAC",back:"TCPI = (BAC - EV) / (BAC - AC)\nAbove 1 = harder road ahead\nBelow 1 = easier road ahead"},
+    {front:"TCPI (Based on EAC)",back:"TCPI = (BAC - EV) / (EAC - AC)\nPerformance needed to hit revised estimate"},
+    {front:"Communication Channels",back:"Channels = N(N-1) / 2\nN = number of stakeholders\n10 people = 45 channels"},
+    {front:"PERT Expected Duration",back:"tE = (O + 4M + P) / 6\nO = optimistic\nM = most likely\nP = pessimistic"},
+    {front:"PERT Standard Deviation",back:"SD = (P - O) / 6\nUsed for confidence ranges"},
+    {front:"Float / Slack",back:"Float = LS - ES = LF - EF\nCritical path activities have 0 float"},
+    {front:"Point of Total Assumption (PTA)",back:"PTA = [(Ceiling - Target Price) / Buyer Share Ratio] + Target Cost\nOnly for FPIF contracts"},
+    {front:"EMV (Expected Monetary Value)",back:"EMV = Probability x Impact\nUsed in quantitative risk analysis\nPositive for opportunities, negative for threats"},
+    {front:"Cost of Quality Components",back:"Prevention + Appraisal = Conformance\nInternal Failure + External Failure = Non-conformance\nInvest in prevention to reduce failure costs"},
+    {front:"Earned Value Basics",back:"PV = Planned Value (budgeted cost of planned work)\nEV = Earned Value (budgeted cost of completed work)\nAC = Actual Cost (actual cost of completed work)\nBAC = Budget at Completion (total budget)"},
+    {front:"Crashing vs Fast-Tracking",back:"Crashing = add resources = more cost, same risk\nFast-tracking = overlap activities = same cost, more risk\nBoth only work on critical path"}
+  ];
+  return cards;
+}
+var flashcardIndex=0,flashcardFlipped=false,flashcardDeck=[];
+function startFlashcards(){flashcardDeck=formulaFlashcards().sort(function(){return Math.random()-.5;});flashcardIndex=0;flashcardFlipped=false;screen="flashcards";render();}
+function flashcardsView(){
+  if(!flashcardDeck.length)flashcardDeck=formulaFlashcards();
+  var card=flashcardDeck[flashcardIndex];
+  return '<h2>Formula Flashcards</h2><p class="muted">Card '+(flashcardIndex+1)+' of '+flashcardDeck.length+'</p><div class="card" style="min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;font-size:18px;padding:30px;" onclick="flashcardFlipped=!flashcardFlipped;render()"><div style="white-space:pre-line">'+(flashcardFlipped?esc(card.back):esc(card.front))+'</div></div><p class="muted small" style="text-align:center">'+(flashcardFlipped?'Answer':'Tap card to flip')+'</p><div style="display:flex;gap:10px;margin-top:12px"><button class="btn secondary" onclick="flashcardIndex=Math.max(0,flashcardIndex-1);flashcardFlipped=false;render()">Previous</button><button class="btn" onclick="flashcardIndex=Math.min(flashcardDeck.length-1,flashcardIndex+1);flashcardFlipped=false;render()">Next</button></div><button class="btn blue" style="margin-top:10px" onclick="flashcardDeck=formulaFlashcards().sort(function(){return Math.random()-.5;});flashcardIndex=0;flashcardFlipped=false;render()">Shuffle Deck</button><button class="btn secondary" style="margin-top:8px" onclick="go(\'home\')">Back Home</button>';
+}
+function chapterProgressBlock(){
+  var stats=getStats();
+  if(!Object.keys(stats.byChapter).length)return '<div class="card"><p class="muted">Complete a quiz to see chapter progress here.</p></div>';
+  var rows=Object.entries(stats.byChapter).map(function(entry){var name=entry[0],v=entry[1];var pct=v.total?Math.round(v.correct/v.total*100):0;return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--soft)"><span class="small">'+esc(name)+'</span><span class="small" style="font-weight:800;color:'+(pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)')+'">'+pct+'%</span></div>';}).join('');
+  return '<div class="card"><h3>Chapter Accuracy</h3>'+rows+'</div>';
+}
 function home(){return `<div class="grid">
 <div class="card" onclick="go('chapters')"><h2>📚 Chapters</h2><p class="muted">Deep podcasts, notes, examples, and quizzes.</p></div>
 <div class="card" onclick="startMock()"><h2>📝 Mock Exam</h2><p class="muted">Scenario-heavy mixed questions.</p></div>
@@ -266,9 +345,11 @@ function home(){return `<div class="grid">
 <div class="card" onclick="go('tutor')"><h2>🤖 AI Tutor</h2><p class="muted">Offline coach for loaded chapters.</p></div>
 </div>
 
-${readinessViewBlock()}<div class="card" style="margin-top:16px;">
+${readinessViewBlock()}${chapterProgressBlock()}<div class="card" style="margin-top:16px;">
   <h2>New Study Modes</h2>
   <button class="btn blue" onclick="startQuickDrill()">10-Question Quick Drill</button>
+  <button class="btn purple" onclick="startHardMode()">Hard Mode (PMI Mindset Only)</button>
+  <button class="btn secondary" onclick="startFlashcards()">Formula Flashcards</button>
   <button class="btn red" onclick="startExamSimulation()">60-Question Exam Simulation</button><button class="btn red" onclick="startFullMockExam()">Full 180-Question Mock Exam</button>
   <p class="muted small">Quick Drill is for daily reps. Exam Simulation hides trap-word help and acts stricter.</p>
 </div>
@@ -339,7 +420,13 @@ ${ch.id === 12 ? `<div class="audio-help" style="background:rgba(16,185,129,.18)
     Your browser does not support audio.
   </audio>
   <div id="audioStatus" class="audio-status">Loading chapter audio...</div>
-`}<button class="btn secondary" onclick="saveAudioBookmark(selectedChapter.id)">Bookmark Current Audio Time</button>
+`}<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+    <button class="btn secondary" style="flex:1;min-width:60px" onclick="var a=document.getElementById('realAudio');if(a)a.playbackRate=1.0">1x</button>
+    <button class="btn secondary" style="flex:1;min-width:60px" onclick="var a=document.getElementById('realAudio');if(a)a.playbackRate=1.25">1.25x</button>
+    <button class="btn secondary" style="flex:1;min-width:60px" onclick="var a=document.getElementById('realAudio');if(a)a.playbackRate=1.5">1.5x</button>
+    <button class="btn secondary" style="flex:1;min-width:60px" onclick="var a=document.getElementById('realAudio');if(a)a.playbackRate=2.0">2x</button>
+  </div>
+  <button class="btn secondary" onclick="saveAudioBookmark(selectedChapter.id)">Bookmark Current Audio Time</button>
   <p class="small">Podcast script files are included in the <strong>audio_scripts</strong> folder.</p>
 </div>
 
@@ -457,6 +544,14 @@ function weakestTag(){
   return weakest;
 }
 
+function startHardMode(){
+  stopPodcast(false);
+  quizMode = "hard";
+  var scenarioQs = getAllQuestions().filter(function(q){return q.q && q.q.length > 100 && q.mindset && q.mindset.indexOf("PMI mindset")===0;});
+  if(scenarioQs.length < 10) scenarioQs = getAllQuestions().filter(function(q){return q.mindset;});
+  quizQuestions = scenarioQs.map(function(q){return shuffleOptions(q);}).sort(function(){return Math.random()-.5;}).slice(0,20);
+  quizIndex=0; selectedOption=null; confidence=null; quizResults=[]; showExplanation=false; screen="quiz"; resetQuestionTools(); render();
+}
 function startQuickDrill(){
   stopPodcast(false);
   quizMode = "quick";
@@ -625,7 +720,7 @@ function finishExamDueToTime(){
     const q = quizQuestions[quizResults.length];
     quizResults.push({question:q, selected:-1, confidence:"unanswered", timeSpent:0, eliminated:[]});
   }
-  studyHistory.push({date:new Date().toLocaleString(), mode:quizMode, results:quizResults});
+  studyHistory.push({date:new Date().toLocaleString(), mode:quizMode, results:quizResults});updateStreak();
   save();
   screen="results";
   render();
@@ -665,29 +760,34 @@ function progressDashboardV24(){
   <div class="card"><h3>Question Tags</h3>${tagRows || `<p class="muted">Take a quiz to generate tag performance.</p>`}</div>
   <h3>Chapter Performance</h3>
   <div class="analytics-grid">${chapterRows || `<div class="card"><p class="muted">Take a quiz to unlock chapter analytics.</p></div>`}</div>
-  <div class="card"><h3>Audio Bookmarks</h3>${audioMarks.length ? audioMarks.map(a=>`<div class="audio-bookmark">${esc(a.label)} • ${esc(a.date)}</div>`).join("") : `<p class="muted">No audio bookmarks yet.</p>`}</div>`;
+  <div class="card"><h3>Backup & Restore</h3><p class="muted small">Export your progress to a file, or restore from a previous backup.</p><button class="btn blue" onclick="exportProgress()">Export Progress</button><button class="btn secondary" style="margin-top:8px" onclick="importProgress()">Import Backup</button></div><div class="card"><h3>Audio Bookmarks</h3>${audioMarks.length ? audioMarks.map(a=>`<div class="audio-bookmark">${esc(a.label)} • ${esc(a.date)}</div>`).join("") : `<p class="muted">No audio bookmarks yet.</p>`}</div>`;
 }
 
 function startChapterQuiz(id){stopPodcast(false);quizMode="practice";let ch=chapters.find(c=>c.id===id);quizQuestions=ch.questions.map(q=>shuffleOptions({...q,chapterTitle:ch.title,chapterId:ch.id}));quizIndex=0;selectedOption=null;confidence=null;quizResults=[];screen="quiz";resetQuestionTools();render();}
 function startMock(){stopPodcast(false);quizMode="mock";quizQuestions=chapters.flatMap(ch=>ch.questions.map(q=>shuffleOptions({...q,chapterTitle:ch.title,chapterId:ch.id}))).sort(()=>Math.random()-.5);quizIndex=0;selectedOption=null;confidence=null;quizResults=[];screen="quiz";resetQuestionTools();render();}
 function selectOption(i){selectedOption=i;render();} function setConfidence(c){confidence=c;render();}
 function nextQuestion(){
-  let q=quizQuestions[quizIndex];
-  quizResults.push({question:q,selected:selectedOption,confidence,timeSpent:questionElapsed,eliminated:[...eliminatedOptions]});
-  const latest = quizResults[quizResults.length-1];
-  const isCorrect = latest.selected === latest.question.answer;
-  if(!isCorrect) addToReviewQueue(latest.question, "Missed");
-  if(latest.confidence === "guess") addToReviewQueue(latest.question, "Guessed");
-  if(latest.confidence === "unsure") addToReviewQueue(latest.question, "Low confidence");
-  if(latest.confidence === "confident" && !isCorrect) addToReviewQueue(latest.question, "Confident + wrong");
-
+  if(!showExplanation){
+    let q=quizQuestions[quizIndex];
+    quizResults.push({question:q,selected:selectedOption,confidence,timeSpent:questionElapsed,eliminated:[...eliminatedOptions]});
+    const latest = quizResults[quizResults.length-1];
+    const isCorrect = latest.selected === latest.question.answer;
+    if(!isCorrect) addToReviewQueue(latest.question, "Missed");
+    if(latest.confidence === "guess") addToReviewQueue(latest.question, "Guessed");
+    if(latest.confidence === "unsure") addToReviewQueue(latest.question, "Low confidence");
+    if(latest.confidence === "confident" && !isCorrect) addToReviewQueue(latest.question, "Confident + wrong");
+    showExplanation=true;
+    render();
+    return;
+  }
+  showExplanation=false;
   if(quizIndex>=quizQuestions.length-1){
     if(questionTimerInterval) clearInterval(questionTimerInterval);
     questionTimerInterval = null;
     if(examTimerInterval) clearInterval(examTimerInterval);
     examTimerInterval = null;
     quizResults.filter(r=>r.selected!==r.question.answer||r.confidence==="guess").forEach(r=>{let q=r.question;if(!missed.some(m=>m.q===q.q))missed.push(q)});
-    studyHistory.push({date:new Date().toLocaleString(), mode:quizMode, results:quizResults});
+    studyHistory.push({date:new Date().toLocaleString(), mode:quizMode, results:quizResults});updateStreak();
     save();
     screen="results";
   }else{
@@ -791,7 +891,8 @@ function quizView(){
   <div>${(q.tags||[]).map(t=>`<span class="tag-pill">${esc(t)}</span>`).join("")}</div><h2>${(quizMode==="simulation" || quizMode==="fullExam") ? esc(q.q) : highlightTrapWords(q.q)}</h2>
   ${q.options.map((o,i)=>`<div class="option-wrap"><button class="option ${selectedOption===i?'selected':''} ${eliminatedOptions.includes(i)?'eliminated':''}" onclick="selectOption(${i})">${esc(o)}</button><button class="cross-btn ${eliminatedOptions.includes(i)?'eliminated':''}" onclick="toggleEliminate(${i})">✕</button></div>`).join("")}
   <div class="card"><h3>Confidence</h3><div class="conf-grid"><button class="conf ${confidence==='guess'?'selected':''}" onclick="setConfidence('guess')">Guessed</button><button class="conf ${confidence==='unsure'?'selected':''}" onclick="setConfidence('unsure')">Unsure</button><button class="conf ${confidence==='confident'?'selected':''}" onclick="setConfidence('confident')">Confident</button></div></div>
-  <button class="btn" ${selectedOption===null||confidence===null?'disabled':''} onclick="nextQuestion()">${quizIndex===quizQuestions.length-1?'Finish':'Next'}</button>`;
+  <button class="btn" ${selectedOption===null||confidence===null?'disabled':''} onclick="nextQuestion()">${quizIndex===quizQuestions.length-1?'Finish':'Next'}</button>
+  ${showExplanation?(function(){var lr=quizResults[quizResults.length-1];var ok=lr.selected===lr.question.answer;return '<div class="card" style="margin-top:16px;border-left:4px solid '+(ok?'var(--green)':'var(--red)')+'"><p class="'+(ok?'result-good':'result-bad')+'">'+(ok?'Correct!':'Incorrect')+'</p><p><strong>Your answer:</strong> '+esc(lr.question.options[lr.selected])+'</p>'+(ok?'':'<p><strong>Correct answer:</strong> '+esc(lr.question.options[lr.question.answer])+'</p>')+'<p><strong>Why:</strong> '+esc(lr.question.why)+'</p><p><strong>PMI Mindset:</strong> '+esc(lr.question.mindset)+'</p></div>';})():''}`;
 }
 
 function resultsView(){let correct=quizResults.filter(r=>r.selected===r.question.answer).length,pct=Math.round(correct/quizResults.length*100),low=quizResults.filter(r=>r.confidence!=='confident').length;return `<div class="card" style="background:#020617;color:white;text-align:center;"><p>Score</p><h2 style="font-size:48px;margin:0;">${pct}%</h2><p>${correct} correct • ${quizResults.length-correct} missed • ${low} low-confidence</p><p>Avg time: ${Math.round(quizResults.reduce((sum,r)=>sum+(r.timeSpent||0),0)/quizResults.length)}s/question</p></div><h2>Review</h2>${quizResults.map(r=>{let good=r.selected===r.question.answer;return `<div class="card"><p class="${good?'result-good':'result-bad'}">${good?'Correct':'Missed'} • Confidence: ${r.confidence}</p><h3>${esc(r.question.q)}</h3><p><strong>Your answer:</strong> ${r.selected === -1 ? "Unanswered" : esc(r.question.options[r.selected])}</p>${!good?`<p><strong>Correct answer:</strong> ${esc(r.question.options[r.question.answer])}</p>`:''}<p><strong>Why:</strong> ${esc(r.question.why)}</p><p><strong>PMP mindset:</strong> ${esc(r.question.mindset)}</p><div class="mindset-box"><strong>Why PMI wants this answer:</strong><br>${esc(pmiMindsetFor(r.question))}<br><br><strong>Why the tempting answers are wrong:</strong><br>${esc(r.question.temptingWrong || "The wrong answers may sound partly correct, but they miss the best PMP process or mindset.")}<br><br><strong>Trap pattern:</strong><br>${esc(trapPatternFor(r.question))}</div><p><strong>Read again:</strong> ${esc(r.question.chapterRef)}</p></div>`}).join("")}<button class="btn" onclick="go('home')">Back Home</button>`}
@@ -814,7 +915,7 @@ return "Based on the loaded chapters, think like PMI: understand the issue first
 
 function progressView(){return progressDashboardV24();}
 
-function render(){let root=document.getElementById("root"); if(screen==="home")root.innerHTML=home(); if(screen==="chapters")root.innerHTML=chaptersView(); if(screen==="chapterDetail")root.innerHTML=chapterDetail(); if(screen==="quiz")root.innerHTML=quizView(); if(screen==="results")root.innerHTML=resultsView(); if(screen==="missed")root.innerHTML=missedView(); if(screen==="bookmarks")root.innerHTML=bookmarksView(); if(screen==="tutor")root.innerHTML=tutorView(); if(screen==="progress")root.innerHTML=progressView(); if(screen==="reviewQueue")root.innerHTML=reviewQueueView(); if(screen==="dailyPlan")root.innerHTML=dailyPlanView();}
+function render(){let root=document.getElementById("root"); if(screen==="home")root.innerHTML=home(); if(screen==="chapters")root.innerHTML=chaptersView(); if(screen==="chapterDetail")root.innerHTML=chapterDetail(); if(screen==="quiz")root.innerHTML=quizView(); if(screen==="results")root.innerHTML=resultsView(); if(screen==="missed")root.innerHTML=missedView(); if(screen==="bookmarks")root.innerHTML=bookmarksView(); if(screen==="tutor")root.innerHTML=tutorView(); if(screen==="progress")root.innerHTML=progressView(); if(screen==="reviewQueue")root.innerHTML=reviewQueueView(); if(screen==="dailyPlan")root.innerHTML=dailyPlanView(); if(screen==="flashcards")root.innerHTML=flashcardsView();}
 render();
 
 </script>
