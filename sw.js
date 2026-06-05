@@ -1,73 +1,53 @@
-const CACHE_NAME = 'pmp-study-v40';
+﻿const CACHE_VERSION = 'pmp-study-v40b';
 const AUDIO_CACHE = 'pmp-audio-v40';
 
-// Core app files - cached immediately on install
+// Core app files - cached on install
 const CORE_FILES = [
   './',
   './index.html',
   './manifest.json'
 ];
 
-// Audio files - cached on first access (lazy caching)
-const AUDIO_FILES = [
-  './audio/chapter_2.mp3',
-  './audio/chapter_3.mp3',
-  './audio/chapter_4.mp3',
-  './audio/chapter_5.mp3',
-  './audio/chapter_6.mp3',
-  './audio/chapter_7.mp3',
-  './audio/chapter_8.mp3',
-  './audio/chapter_9.mp3',
-  './audio/chapter_10.mp3',
-  './audio/chapter_11.mp3',
-  './audio/chapter_12.mp3',
-  './audio/chapter_13.mp3',
-  './audio/chapter_14.mp3',
-  './audio/chapter_15.mp3'
-];
-
-// Install: cache core files immediately
+// Install: cache core files, activate immediately
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
+    caches.open(CACHE_VERSION).then(cache => {
       console.log('[SW] Caching core files');
       return cache.addAll(CORE_FILES);
     })
   );
-  self.skipWaiting();
+  self.skipWaiting(); // Activate new SW immediately
 });
 
-// Activate: clean old caches
+// Activate: delete ALL old caches, claim clients immediately
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
-        keys.filter(key => key !== CACHE_NAME && key !== AUDIO_CACHE)
-            .map(key => caches.delete(key))
+        keys.filter(key => key !== CACHE_VERSION && key !== AUDIO_CACHE)
+            .map(key => {
+              console.log('[SW] Deleting old cache:', key);
+              return caches.delete(key);
+            })
       );
-    })
+    }).then(() => self.clients.claim()) // Take control immediately
   );
-  self.clients.claim();
 });
 
-// Fetch: serve from cache, fallback to network, cache audio on first load
+// Fetch strategy:
+// - HTML/JS/JSON: Network-first (always try to get fresh, fall back to cache)
+// - Audio: Cache-first (big files, only fetch from network if not cached)
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  
-  // Audio files: cache-first with network fallback
+
+  // Audio files: cache-first (they never change, too big to re-download)
   if (url.pathname.endsWith('.mp3')) {
     event.respondWith(
       caches.open(AUDIO_CACHE).then(cache => {
         return cache.match(event.request).then(cached => {
-          if (cached) {
-            console.log('[SW] Audio from cache:', url.pathname);
-            return cached;
-          }
-          console.log('[SW] Audio from network:', url.pathname);
+          if (cached) return cached;
           return fetch(event.request).then(response => {
-            if (response.ok) {
-              cache.put(event.request, response.clone());
-            }
+            if (response.ok) cache.put(event.request, response.clone());
             return response;
           });
         });
@@ -76,18 +56,19 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // All other files: cache-first with network fallback
+  // Everything else: network-first (always get latest, cache as fallback for offline)
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).then(response => {
-        if (response.ok) {
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
-        }
-        return response;
-      });
+    fetch(event.request).then(response => {
+      if (response.ok) {
+        const responseClone = response.clone();
+        caches.open(CACHE_VERSION).then(cache => {
+          cache.put(event.request, responseClone);
+        });
+      }
+      return response;
+    }).catch(() => {
+      // Network failed — serve from cache (offline mode)
+      return caches.match(event.request);
     })
   );
 });
