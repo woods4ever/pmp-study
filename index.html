@@ -194,6 +194,36 @@
 .dark-mode .analytics-card{background:#1e293b;border-color:#334155}
 .dark-mode .tool-btn{background:#1e293b;color:#94a3b8;border-color:#475569}
 .dark-mode .progressbar{background:#334155}
+.dark-mode .speaker{color:#e2e8f0}
+.dark-mode .example{background:#1e293b;border-color:#3b82f6;color:#e2e8f0}
+.dark-mode .plan-step{background:#1e293b;border-color:#e2e8f0;color:#e2e8f0}
+.dark-mode .mindset-box{background:#1e293b;border-color:#334155;color:#e2e8f0}
+.dark-mode .tempting-answer{background:#1e293b;border-color:#d97706;color:#e2e8f0}
+.dark-mode .fallback-details{background:#1e293b;border-color:#334155}
+.dark-mode .fallback-details summary{color:#e2e8f0}
+.dark-mode .transcript-note{background:#1e293b;border-color:#3b82f6;color:#94a3b8}
+.dark-mode .review-section{background:#1e293b;border-color:#334155}
+.dark-mode .review-badge{background:#422006;color:#fbbf24}
+.dark-mode .audio-bookmark{background:#064e3b;color:#6ee7b7;border-color:#065f46}
+.dark-mode .trap-word{background:#422006;color:#fbbf24}
+.dark-mode .pacing-note{color:#94a3b8}
+.dark-mode .timer-row{color:#94a3b8}
+.dark-mode .hero{background:#020617}
+.dark-mode h2,.dark-mode h3{color:#e2e8f0}
+.dark-mode p,.dark-mode li,.dark-mode span,.dark-mode div{color:inherit}
+.dark-mode .btn{background:#e2e8f0;color:#0f172a}
+.dark-mode .btn.secondary{background:#334155;color:#e2e8f0}
+.dark-mode .btn.red{background:#ef4444;color:#fff}
+.dark-mode .btn.green{background:#10b981;color:#fff}
+.dark-mode .btn.blue{background:#3b82f6;color:#fff}
+.dark-mode .btn.purple{background:#8b5cf6;color:#fff}
+.dark-mode .result-good{color:#34d399}
+.dark-mode .result-bad{color:#f87171}
+.dark-mode .big-num{color:#e2e8f0}
+.dark-mode ul{color:#e2e8f0}
+.dark-mode .cross-btn{background:#1e293b;color:#94a3b8;border-color:#475569}
+.dark-mode .cross-btn.eliminated{background:#450a0a;color:#fca5a5;border-color:#7f1d1d}
+.dark-mode .option.eliminated{background:#1e293b;color:#64748b}
 </style>
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -348,7 +378,7 @@ function home(){return `<div class="grid">
 ${readinessViewBlock()}${chapterProgressBlock()}<div class="card" style="margin-top:16px;">
   <h2>New Study Modes</h2>
   <button class="btn blue" onclick="startQuickDrill()">10-Question Quick Drill</button>
-  <button class="btn purple" onclick="startHardMode()">Hard Mode (PMI Mindset Only)</button>
+  <button class="btn purple" onclick="showHardModeChapterSelect()">Hard Mode (PMI Mindset Only)</button>
   <button class="btn secondary" onclick="startFlashcards()">Formula Flashcards</button>
   <button class="btn red" onclick="startExamSimulation()">60-Question Exam Simulation</button><button class="btn red" onclick="startFullMockExam()">Full 180-Question Mock Exam</button>
   <p class="muted small">Quick Drill is for daily reps. Exam Simulation hides trap-word help and acts stricter.</p>
@@ -915,7 +945,7 @@ return "Based on the loaded chapters, think like PMI: understand the issue first
 
 function progressView(){return progressDashboardV24();}
 
-function render(){let root=document.getElementById("root"); if(screen==="home")root.innerHTML=home(); if(screen==="chapters")root.innerHTML=chaptersView(); if(screen==="chapterDetail")root.innerHTML=chapterDetail(); if(screen==="quiz")root.innerHTML=quizView(); if(screen==="results")root.innerHTML=resultsView(); if(screen==="missed")root.innerHTML=missedView(); if(screen==="bookmarks")root.innerHTML=bookmarksView(); if(screen==="tutor")root.innerHTML=tutorView(); if(screen==="progress")root.innerHTML=progressView(); if(screen==="reviewQueue")root.innerHTML=reviewQueueView(); if(screen==="dailyPlan")root.innerHTML=dailyPlanView(); if(screen==="flashcards")root.innerHTML=flashcardsView();}
+function render(){let root=document.getElementById("root"); if(screen==="home")root.innerHTML=home(); if(screen==="chapters")root.innerHTML=chaptersView(); if(screen==="chapterDetail")root.innerHTML=chapterDetail(); if(screen==="quiz")root.innerHTML=quizView(); if(screen==="results")root.innerHTML=resultsView(); if(screen==="missed")root.innerHTML=missedView(); if(screen==="bookmarks")root.innerHTML=bookmarksView(); if(screen==="tutor")root.innerHTML=tutorView(); if(screen==="progress")root.innerHTML=progressView(); if(screen==="reviewQueue")root.innerHTML=reviewQueueView(); if(screen==="dailyPlan")root.innerHTML=dailyPlanView(); if(screen==="flashcards")root.innerHTML=flashcardsView(); if(screen==="hardSelect")root.innerHTML=hardSelectView();}
 render();
 
 </script>
