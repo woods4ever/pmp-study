@@ -580,9 +580,9 @@ function startHardMode(chapterId){
   var scenarioQs;
   if(chapterId){
     var ch=chapters.find(function(c){return c.id===chapterId;});
-    scenarioQs=ch?ch.questions.filter(function(q){return q.q&&q.q.length>100&&q.mindset&&q.mindset.indexOf("PMI mindset")===0;}):[];
+    scenarioQs=ch?ch.questions.filter(function(q){return q.q&&q.q.length>50&&q.mindset&&q.mindset.indexOf("PMI mindset")===0;}):[];
   }else{
-    scenarioQs=getAllQuestions().filter(function(q){return q.q&&q.q.length>100&&q.mindset&&q.mindset.indexOf("PMI mindset")===0;});
+    scenarioQs=getAllQuestions().filter(function(q){return q.q&&q.q.length>50&&q.mindset&&q.mindset.indexOf("PMI mindset")===0;});
   }
   if(scenarioQs.length<5)scenarioQs=getAllQuestions().filter(function(q){return q.mindset;});
   quizQuestions=scenarioQs.map(function(q){return shuffleOptions(q);}).sort(function(){return Math.random()-.5;}).slice(0,20);
