@@ -574,14 +574,26 @@ function weakestTag(){
   return weakest;
 }
 
-function startHardMode(){
+function startHardMode(chapterId){
   stopPodcast(false);
-  quizMode = "hard";
-  var scenarioQs = getAllQuestions().filter(function(q){return q.q && q.q.length > 100 && q.mindset && q.mindset.indexOf("PMI mindset")===0;});
-  if(scenarioQs.length < 10) scenarioQs = getAllQuestions().filter(function(q){return q.mindset;});
-  quizQuestions = scenarioQs.map(function(q){return shuffleOptions(q);}).sort(function(){return Math.random()-.5;}).slice(0,20);
-  quizIndex=0; selectedOption=null; confidence=null; quizResults=[]; showExplanation=false; screen="quiz"; resetQuestionTools(); render();
+  quizMode="hard";
+  var scenarioQs;
+  if(chapterId){
+    var ch=chapters.find(function(c){return c.id===chapterId;});
+    scenarioQs=ch?ch.questions.filter(function(q){return q.q&&q.q.length>100&&q.mindset&&q.mindset.indexOf("PMI mindset")===0;}):[];
+  }else{
+    scenarioQs=getAllQuestions().filter(function(q){return q.q&&q.q.length>100&&q.mindset&&q.mindset.indexOf("PMI mindset")===0;});
+  }
+  if(scenarioQs.length<5)scenarioQs=getAllQuestions().filter(function(q){return q.mindset;});
+  quizQuestions=scenarioQs.map(function(q){return shuffleOptions(q);}).sort(function(){return Math.random()-.5;}).slice(0,20);
+  quizIndex=0;selectedOption=null;confidence=null;quizResults=[];showExplanation=false;screen="quiz";resetQuestionTools();render();
 }
+function showHardModeChapterSelect(){screen="hardSelect";render();}
+function hardSelectView(){
+  var btns=chapters.map(function(ch){return '<button class="btn secondary" style="margin-top:8px" onclick="startHardMode('+ch.id+')">'+esc(ch.title)+'</button>';}).join("");
+  return '<h2>Hard Mode - Select Chapter</h2><p class="muted">Choose a chapter for PMI mindset scenario questions, or do all chapters mixed.</p><button class="btn purple" onclick="startHardMode()">All Chapters Mixed (20 questions)</button>'+btns+'<button class="btn secondary" style="margin-top:16px" onclick="go(\'home\')">Back Home</button>';
+}
+
 function startQuickDrill(){
   stopPodcast(false);
   quizMode = "quick";
