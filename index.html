@@ -320,14 +320,14 @@ document.addEventListener("visibilitychange",()=>{
 
 function go(target){ if(target!=="chapterDetail") stopPodcast(false); screen=target; render();}
 function exportProgress(){
-  var data={missed:missed,bookmarks:bookmarks,tutorHistory:tutorHistory,studyHistory:studyHistory,reviewQueue:reviewQueue,audioMarks:audioMarks,streakData:streakData,exportDate:new Date().toISOString()};
+  var data={missed:missed,bookmarks:bookmarks,tutorHistory:tutorHistory,studyHistory:studyHistory,reviewQueue:reviewQueue,audioMarks:audioMarks,streakData:streakData,srDeck:srDeck,exportDate:new Date().toISOString()};
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   var url=URL.createObjectURL(blob);
   var a=document.createElement('a');a.href=url;a.download='pmp_study_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);
 }
 function importProgress(){
   var input=document.createElement('input');input.type='file';input.accept='.json';
-  input.onchange=function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var data=JSON.parse(ev.target.result);if(data.missed)missed=data.missed;if(data.bookmarks)bookmarks=data.bookmarks;if(data.tutorHistory)tutorHistory=data.tutorHistory;if(data.reviewQueue)reviewQueue=data.reviewQueue;if(data.audioMarks)audioMarks=data.audioMarks;if(data.streakData)streakData=data.streakData;save();alert('Progress restored! '+((data.studyHistory||[]).length)+' study sessions imported.');render();}catch(err){alert('Error reading backup file.');}};reader.readAsText(file);};
+  input.onchange=function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var data=JSON.parse(ev.target.result);if(data.missed)missed=data.missed;if(data.bookmarks)bookmarks=data.bookmarks;if(data.tutorHistory)tutorHistory=data.tutorHistory;if(data.reviewQueue)reviewQueue=data.reviewQueue;if(data.audioMarks)audioMarks=data.audioMarks;if(data.streakData)streakData=data.streakData;if(data.srDeck)srDeck=data.srDeck;save();alert('Progress restored! '+((data.studyHistory||[]).length)+' study sessions imported.');render();}catch(err){alert('Error reading backup file.');}};reader.readAsText(file);};
   input.click();
 }
 function formulaFlashcards(){
@@ -375,7 +375,7 @@ function home(){return `<div class="grid">
 <div class="card" onclick="go('tutor')"><h2>🤖 AI Tutor</h2><p class="muted">Offline coach for loaded chapters.</p></div>
 </div>
 
-${readinessViewBlock()}${chapterProgressBlock()}<div class="card" style="margin-top:16px;">
+${readinessViewBlock()}${srViewBlock()}${chapterProgressBlock()}<div class="card" style="margin-top:16px;">
   <h2>New Study Modes</h2>
   <button class="btn blue" onclick="startQuickDrill()">10-Question Quick Drill</button>
   <button class="btn purple" onclick="showHardModeChapterSelect()">Hard Mode (PMI Mindset Only)</button>
@@ -814,10 +814,10 @@ function nextQuestion(){
     quizResults.push({question:q,selected:selectedOption,confidence,timeSpent:questionElapsed,eliminated:[...eliminatedOptions]});
     const latest = quizResults[quizResults.length-1];
     const isCorrect = latest.selected === latest.question.answer;
-    if(!isCorrect) addToReviewQueue(latest.question, "Missed");
+    if(!isCorrect){addToReviewQueue(latest.question, "Missed");addToSR(latest.question);}
     if(latest.confidence === "guess") addToReviewQueue(latest.question, "Guessed");
     if(latest.confidence === "unsure") addToReviewQueue(latest.question, "Low confidence");
-    if(latest.confidence === "confident" && !isCorrect) addToReviewQueue(latest.question, "Confident + wrong");
+    if(latest.confidence === "confident" && !isCorrect){addToReviewQueue(latest.question, "Confident + wrong");addToSR(latest.question);}
     showExplanation=true;
     render();
     return;
@@ -957,6 +957,47 @@ return "Based on the loaded chapters, think like PMI: understand the issue first
 
 function progressView(){return progressDashboardV24();}
 
+function addToSR(question){
+  var id=question.q.substring(0,80);
+  if(srDeck.some(function(c){return c.id===id;}))return;
+  srDeck.push({id:id,question:question,interval:1,nextReview:new Date(Date.now()+86400000).toISOString().slice(0,10),repetitions:0,ease:2.5});
+  save();
+}
+function getSRDueCards(){
+  var today=new Date().toISOString().slice(0,10);
+  return srDeck.filter(function(c){return c.nextReview<=today;});
+}
+function reviewSRCard(cardId,quality){
+  var card=srDeck.find(function(c){return c.id===cardId;});
+  if(!card)return;
+  if(quality>=3){
+    if(card.repetitions===0)card.interval=1;
+    else if(card.repetitions===1)card.interval=3;
+    else card.interval=Math.round(card.interval*card.ease);
+    card.repetitions++;
+    card.ease=Math.max(1.3,card.ease+0.1-0.08*(5-quality)-0.02*(5-quality)*(5-quality));
+  }else{
+    card.repetitions=0;
+    card.interval=1;
+    card.ease=Math.max(1.3,card.ease-0.2);
+  }
+  var next=new Date(Date.now()+card.interval*86400000);
+  card.nextReview=next.toISOString().slice(0,10);
+  save();
+}
+function startSRReview(){
+  var due=getSRDueCards();
+  if(due.length===0){alert("No cards due for review today. Come back tomorrow!");return;}
+  stopPodcast(false);
+  quizMode="sr";
+  quizQuestions=due.map(function(c){return shuffleOptions({...c.question,srCardId:c.id});});
+  quizIndex=0;selectedOption=null;confidence=null;quizResults=[];showExplanation=false;screen="quiz";resetQuestionTools();render();
+}
+function srViewBlock(){
+  var due=getSRDueCards();
+  var total=srDeck.length;
+  return '<div class="card"><h3>Spaced Repetition</h3><p class="muted">Questions you missed are scheduled for review at increasing intervals. Get them right and they appear less often. Get them wrong and they come back tomorrow.</p><p><strong>'+due.length+'</strong> cards due today | <strong>'+total+'</strong> total in deck</p>'+(due.length>0?'<button class="btn green" onclick="startSRReview()">Review Due Cards ('+due.length+')</button>':'<p class="muted small">All caught up. New cards appear after you miss questions in quizzes.</p>')+'</div>';
+}
 function render(){let root=document.getElementById("root"); if(screen==="home")root.innerHTML=home(); if(screen==="chapters")root.innerHTML=chaptersView(); if(screen==="chapterDetail")root.innerHTML=chapterDetail(); if(screen==="quiz")root.innerHTML=quizView(); if(screen==="results")root.innerHTML=resultsView(); if(screen==="missed")root.innerHTML=missedView(); if(screen==="bookmarks")root.innerHTML=bookmarksView(); if(screen==="tutor")root.innerHTML=tutorView(); if(screen==="progress")root.innerHTML=progressView(); if(screen==="reviewQueue")root.innerHTML=reviewQueueView(); if(screen==="dailyPlan")root.innerHTML=dailyPlanView(); if(screen==="flashcards")root.innerHTML=flashcardsView(); if(screen==="hardSelect")root.innerHTML=hardSelectView();}
 render();
 
