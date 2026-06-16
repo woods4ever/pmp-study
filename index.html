@@ -298,7 +298,18 @@ let bookmarks=JSON.parse(localStorage.getItem("pmp_bookmarks_v12")||"[]");
 let tutorHistory=JSON.parse(localStorage.getItem("pmp_tutor_v12")||"[]");
 let activePodcast=null,podcastIndex=0,voices=[],voiceA=null,voiceB=null,speechRate=0.95,isSpeaking=false,isPaused=false,lockMode=false,lastPodcastId=null,lastPodcastIndex=0;
 
-function save(){localStorage.setItem("pmp_missed_v12",JSON.stringify(missed));localStorage.setItem("pmp_bookmarks_v12",JSON.stringify(bookmarks));localStorage.setItem("pmp_tutor_v12",JSON.stringify(tutorHistory));localStorage.setItem("pmp_audio_positions",JSON.stringify(audioPositions));localStorage.setItem("pmp_sr_deck_v1",JSON.stringify(srDeck));localStorage.setItem("pmp_streak_v1",JSON.stringify(streakData));localStorage.setItem("pmp_history_v31",JSON.stringify(studyHistory));localStorage.setItem("pmp_review_v31",JSON.stringify(reviewQueue));}
+function save(){
+  try{
+    if(typeof missed!=="undefined")localStorage.setItem("pmp_missed_v12",JSON.stringify(missed));
+    if(typeof bookmarks!=="undefined")localStorage.setItem("pmp_bookmarks_v12",JSON.stringify(bookmarks));
+    if(typeof tutorHistory!=="undefined")localStorage.setItem("pmp_tutor_v12",JSON.stringify(tutorHistory));
+    if(typeof audioPositions!=="undefined")localStorage.setItem("pmp_audio_positions",JSON.stringify(audioPositions));
+    if(typeof srDeck!=="undefined")localStorage.setItem("pmp_sr_deck_v1",JSON.stringify(srDeck));
+    if(typeof streakData!=="undefined")localStorage.setItem("pmp_streak_v1",JSON.stringify(streakData));
+    if(typeof studyHistory!=="undefined")localStorage.setItem("pmp_history_v31",JSON.stringify(studyHistory));
+    if(typeof reviewQueue!=="undefined")localStorage.setItem("pmp_review_v31",JSON.stringify(reviewQueue));
+  }catch(e){console.error("Save error:",e);}
+}
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
 function loadVoices(){voices=window.speechSynthesis?speechSynthesis.getVoices():[];if(!voiceA&&voices.length){voiceA=voices.find(v=>/female|zira|samantha|aria|jenny|susan|victoria/i.test(v.name))||voices[0];voiceB=voices.find(v=>v.name!==voiceA.name&&/male|david|mark|daniel|alex|guy|george/i.test(v.name))||voices.find(v=>v.name!==voiceA.name)||voices[0];}}
 if("speechSynthesis" in window){loadVoices();speechSynthesis.onvoiceschanged=()=>{loadVoices();if(screen==="chapterDetail")render();}}
