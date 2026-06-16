@@ -329,7 +329,7 @@ function exportProgress(){
 }
 function importProgress(){
   var input=document.createElement('input');input.type='file';input.accept='.json';
-  input.onchange=function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var data=JSON.parse(ev.target.result);if(data.missed)missed=data.missed;if(data.bookmarks)bookmarks=data.bookmarks;if(data.tutorHistory)tutorHistory=data.tutorHistory;if(data.reviewQueue)reviewQueue=data.reviewQueue;if(data.audioMarks)audioMarks=data.audioMarks;if(data.streakData)streakData=data.streakData;if(data.srDeck)srDeck=data.srDeck;save();alert('Progress restored! '+((data.studyHistory||[]).length)+' study sessions imported.');render();}catch(err){alert('Error reading backup file.');}};reader.readAsText(file);};
+  input.onchange=function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var data=JSON.parse(ev.target.result);if(data.missed)missed=data.missed;if(data.bookmarks)bookmarks=data.bookmarks;if(data.tutorHistory)tutorHistory=data.tutorHistory;if(data.reviewQueue)reviewQueue=data.reviewQueue;if(data.audioMarks)audioMarks=data.audioMarks;if(data.streakData)streakData=data.streakData;if(data.srDeck)srDeck=data.srDeck;if(data.studyHistory)studyHistory=data.studyHistory;if(data.audioMarks)audioMarks=data.audioMarks;save();alert('Progress restored! '+((data.studyHistory||[]).length)+' study sessions imported.');render();}catch(err){alert('Error reading backup file.');}};reader.readAsText(file);};
   input.click();
 }
 function formulaFlashcards(){
