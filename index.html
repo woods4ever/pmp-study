@@ -329,7 +329,7 @@ function exportProgress(){
 }
 function importProgress(){
   var input=document.createElement('input');input.type='file';input.accept='.json';
-  input.onchange=function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var data=JSON.parse(ev.target.result);if(data.missed)missed=data.missed;if(data.bookmarks)bookmarks=data.bookmarks;if(data.tutorHistory)tutorHistory=data.tutorHistory;if(data.reviewQueue)reviewQueue=data.reviewQueue;if(data.audioMarks)audioMarks=data.audioMarks;if(data.streakData)streakData=data.streakData;if(data.srDeck)srDeck=data.srDeck;if(data.studyHistory)studyHistory=data.studyHistory;if(data.audioMarks)audioMarks=data.audioMarks;save();alert('Progress restored! '+((data.studyHistory||[]).length)+' study sessions imported.');render();}catch(err){alert('Error reading backup file.');}};reader.readAsText(file);};
+  input.onchange=function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var text=ev.target.result.trim();if(text.charCodeAt(0)===0xFEFF)text=text.substring(1);var data=JSON.parse(text);if(data.missed)missed=data.missed;if(data.bookmarks)bookmarks=data.bookmarks;if(data.tutorHistory)tutorHistory=data.tutorHistory;if(data.reviewQueue)reviewQueue=data.reviewQueue;if(data.audioMarks)audioMarks=data.audioMarks;if(data.streakData)streakData=data.streakData;if(data.srDeck)srDeck=data.srDeck;if(data.studyHistory)studyHistory=data.studyHistory;if(data.audioMarks)audioMarks=data.audioMarks;save();alert('Progress restored! '+((data.studyHistory||[]).length)+' study sessions imported.');render();}catch(err){alert('Error reading backup file.');}};reader.readAsText(file);};
   input.click();
 }
 function formulaFlashcards(){
@@ -364,7 +364,7 @@ function flashcardsView(){
   var card=flashcardDeck[flashcardIndex];
   return '<h2>Formula Flashcards</h2><p class="muted">Card '+(flashcardIndex+1)+' of '+flashcardDeck.length+'</p><div class="card" style="min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;font-size:18px;padding:30px;" onclick="flashcardFlipped=!flashcardFlipped;render()"><div style="white-space:pre-line">'+(flashcardFlipped?esc(card.back):esc(card.front))+'</div></div><p class="muted small" style="text-align:center">'+(flashcardFlipped?'Answer':'Tap card to flip')+'</p><div style="display:flex;gap:10px;margin-top:12px"><button class="btn secondary" onclick="flashcardIndex=Math.max(0,flashcardIndex-1);flashcardFlipped=false;render()">Previous</button><button class="btn" onclick="flashcardIndex=Math.min(flashcardDeck.length-1,flashcardIndex+1);flashcardFlipped=false;render()">Next</button></div><button class="btn blue" style="margin-top:10px" onclick="flashcardDeck=formulaFlashcards().sort(function(){return Math.random()-.5;});flashcardIndex=0;flashcardFlipped=false;render()">Shuffle Deck</button><button class="btn secondary" style="margin-top:8px" onclick="go(\'home\')">Back Home</button>';
 }
-function chapterProgressBlock(){if(typeof studyHistory==="undefined")studyHistory=[];
+function chapterProgressBlock(){
   var stats=getStats();
   if(!Object.keys(stats.byChapter).length)return '<div class="card"><p class="muted">Complete a quiz to see chapter progress here.</p></div>';
   var rows=Object.entries(stats.byChapter).map(function(entry){var name=entry[0],v=entry[1];var pct=v.total?Math.round(v.correct/v.total*100):0;return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--soft)"><span class="small">'+esc(name)+'</span><span class="small" style="font-weight:800;color:'+(pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)')+'">'+pct+'%</span></div>';}).join('');
@@ -674,7 +674,7 @@ function dailyPlanView(){
 }
 
 
-function getReadiness(){if(typeof studyHistory==="undefined")studyHistory=[];
+function getReadiness(){
   const stats = getStats();
   const attempts = stats.attempts || [];
   const total = attempts.length;
@@ -995,7 +995,7 @@ function startSRReview(){
   quizQuestions=due.map(function(c){return shuffleOptions({...c.question,srCardId:c.id});});
   quizIndex=0;selectedOption=null;confidence=null;quizResults=[];showExplanation=false;screen="quiz";resetQuestionTools();render();
 }
-function srViewBlock(){if(typeof srDeck==="undefined")srDeck=[];
+function srViewBlock(){
   var due=getSRDueCards();
   var total=srDeck.length;
   return '<div class="card"><h3>Spaced Repetition</h3><p class="muted">Questions you missed are scheduled for review at increasing intervals. Get them right and they appear less often. Get them wrong and they come back tomorrow.</p><p><strong>'+due.length+'</strong> cards due today | <strong>'+total+'</strong> total in deck</p>'+(due.length>0?'<button class="btn green" onclick="startSRReview()">Review Due Cards ('+due.length+')</button>':'<p class="muted small">All caught up. New cards appear after you miss questions in quizzes.</p>')+'</div>';
@@ -1003,6 +1003,7 @@ function srViewBlock(){if(typeof srDeck==="undefined")srDeck=[];
 function updateStreak(){var today=new Date().toISOString().slice(0,10);if(streakData.lastDate===today)return;var yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);if(streakData.lastDate===yesterday){streakData.current++;if(streakData.current>streakData.best)streakData.best=streakData.current;}else if(streakData.lastDate!==today){streakData.current=1;}streakData.lastDate=today;save();}
 function getStreakDisplay(){return streakData.current>0?""+streakData.current+" day"+(streakData.current>1?"s":""):"0 days";}
 function render(){let root=document.getElementById("root"); if(screen==="home")root.innerHTML=home(); if(screen==="chapters")root.innerHTML=chaptersView(); if(screen==="chapterDetail")root.innerHTML=chapterDetail(); if(screen==="quiz")root.innerHTML=quizView(); if(screen==="results")root.innerHTML=resultsView(); if(screen==="missed")root.innerHTML=missedView(); if(screen==="bookmarks")root.innerHTML=bookmarksView(); if(screen==="tutor")root.innerHTML=tutorView(); if(screen==="progress")root.innerHTML=progressView(); if(screen==="reviewQueue")root.innerHTML=reviewQueueView(); if(screen==="dailyPlan")root.innerHTML=dailyPlanView(); if(screen==="flashcards")root.innerHTML=flashcardsView(); if(screen==="hardSelect")root.innerHTML=hardSelectView();}
+console.log('[PMP] Startup - studyHistory:',studyHistory.length,'items, srDeck:',srDeck.length,'cards, missed:',missed.length);
 render();
 
 </script>
